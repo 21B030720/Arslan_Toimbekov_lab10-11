@@ -1,0 +1,1 @@
+# Arslan_Toimbekov_lab10
