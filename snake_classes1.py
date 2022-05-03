@@ -7,7 +7,7 @@ from pygame.locals import *
 mini_data = []
 wall_positions = [(120, 70), (190, 70), (300, 70), (440, 70), (290, 70), (380, 70), (440, 500), (120, 200), (450, 120), (400, 300), (350, 230)]
 sequence = [7.5 + 15*i for i in range(1,48)]
-size = WIDTH, HEIGHT = (720,740)
+size = WIDTH, HEIGHT = (920,740)
 class Wall(pygame.sprite.Sprite):
     def __init__(self, x, y):
         super().__init__()
@@ -50,6 +50,8 @@ class Snake(pygame.sprite.Sprite):
         self.im_of_body = pygame.transform.scale(pygame.image.load('snake_body.png'), (30, 30))
         self.rect = self.image.get_rect(center=(WIDTH / 2 - 7.5, 10 + HEIGHT / 2 - 7.5))
         self.direction = (15, 0)
+        self.save_direction = (15, 0)
+        self.save = True
 
     def move(self, screen):
         for i in range(len(self.body) - 1):
@@ -61,6 +63,9 @@ class Snake(pygame.sprite.Sprite):
         self.rect.move_ip(self.direction)
         screen.blit(pygame.transform.rotate(self.image, ({1: 0, 0: 0, -1: 1}[self.direction[1] / 15]) * (180) + (
                     self.direction[0] / 15) * 90), self.rect)
+    def draw(self, screen):
+        screen.blit(pygame.transform.rotate(self.image, ({1: 0, 0: 0, -1: 1}[self.direction[1] / 15]) * (180) + (
+                self.direction[0] / 15) * 90), self.rect)
 
     def eat_apple(self, screen):
         self.body.append((-20, -20))
